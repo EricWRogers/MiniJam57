@@ -1,5 +1,9 @@
 extends KinematicBody
 
+signal fire_bullet
+
+var ready_to_shoot : bool = true
+
 var speed = 7
 var acceleration = 20
 var gravity = 9.8
@@ -15,6 +19,8 @@ onready var head = $Head
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	for node in get_tree().get_nodes_in_group("game"):
+		connect("fire_bullet", node, "_fire_bullet")
 
 
 func _input(event):
@@ -26,6 +32,14 @@ func _input(event):
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	if Input.is_action_pressed("fire"):
+		if ready_to_shoot:
+			$Head/handgun/FirePoint/CPUParticles.restart()
+			ready_to_shoot = false
+			$Head/handgun/GunTimer.start()
+			var fire_point_transform = $Head/handgun/FirePoint.global_transform
+			emit_signal("fire_bullet", fire_point_transform)
 	
 	dir = Vector3()
 	
@@ -48,3 +62,7 @@ func _process(delta):
 	vel = vel.linear_interpolate(dir * speed, acceleration * delta)
 	vel = move_and_slide(vel, Vector3.UP)
 	move_and_slide(fall, Vector3.UP)
+
+
+func _on_GunTimer_timeout():
+	ready_to_shoot = true
