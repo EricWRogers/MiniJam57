@@ -22,7 +22,6 @@ func _ready():
 	for node in get_tree().get_nodes_in_group("game"):
 		connect("fire_bullet", node, "_fire_bullet")
 
-
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(deg2rad(-event.relative.x * mouse_sensitivity))
@@ -62,7 +61,6 @@ func _process(delta):
 	vel = vel.linear_interpolate(dir * speed, acceleration * delta)
 	vel = move_and_slide(vel, Vector3.UP)
 	move_and_slide(fall, Vector3.UP)
-
 
 func _on_GunTimer_timeout():
 	ready_to_shoot = true
