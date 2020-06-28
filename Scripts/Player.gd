@@ -7,7 +7,7 @@ var ready_to_shoot : bool = true
 var speed = 7
 var acceleration = 20
 var gravity = 9.8
-var jump  = 5
+#var jump  = 5
 
 export var mouse_sensitivity : float = 0.05
 
@@ -42,11 +42,11 @@ func _process(delta):
 	
 	dir = Vector3()
 	
-	if not is_on_floor():
-		fall.y -= gravity * delta
+	#if not is_on_floor():
+	#	fall.y -= gravity * delta
 	
-	if Input.is_action_pressed("jump"):
-		fall.y = jump
+	#if Input.is_action_pressed("jump"):
+	#	fall.y = jump
 	
 	if Input.is_action_pressed("move_forward"):
 		dir -= transform.basis.z
@@ -60,7 +60,7 @@ func _process(delta):
 	dir = dir.normalized()
 	vel = vel.linear_interpolate(dir * speed, acceleration * delta)
 	vel = move_and_slide(vel, Vector3.UP)
-	move_and_slide(fall, Vector3.UP)
+	#move_and_slide(fall, Vector3.UP)
 
 func _on_GunTimer_timeout():
 	ready_to_shoot = true

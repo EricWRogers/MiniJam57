@@ -1,6 +1,6 @@
 extends Area
 
-var bullet_speed : int = 50
+var bullet_speed : int = 25
 
 func _process(delta):
 	translate(Vector3(0,0,-1) * bullet_speed * delta)

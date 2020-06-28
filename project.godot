@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="MiniJam57"
-run/main_scene="res://Scenes/Test/PlayerTest.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
 
 [input]
